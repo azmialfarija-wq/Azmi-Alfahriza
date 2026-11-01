@@ -1,0 +1,271 @@
+/* ==========================================================
+   TECHZONE - HALAMAN LOGIN (kaca gelap + garis emas)
+   ========================================================== */
+.tz-login {
+    --gold: #ffd21f;
+    --amber: #ff7a18;
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(1000px 700px at 85% 90%, rgba(15,26,51,.9), transparent 70%), radial-gradient(900px 600px at 10% 0%, rgba(11,18,36,.9), transparent 70%), #050506;
+    color: #f4f4f5;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    display: block;
+}
+
+/* ---------- Latar ---------- */
+.tz-waves {
+    position: fixed; inset: 0; width: 100%; height: 100%;
+    z-index: 0;
+}
+.tz-waves g { transform-origin: 50% 50%; }
+.wave-a { animation: drift-a 14s ease-in-out infinite alternate; }
+.wave-b { animation: drift-b 18s ease-in-out infinite alternate; }
+.wave-c { animation: drift-c 22s ease-in-out infinite alternate; }
+@keyframes drift-a { from { transform: translate(-40px, 10px) rotate(-1.2deg); } to { transform: translate(50px, -20px) rotate(1.2deg); } }
+@keyframes drift-b { from { transform: translate(40px, -10px) scale(1.02); } to { transform: translate(-60px, 25px) scale(1); } }
+@keyframes drift-c { from { transform: translate(0, 20px); } to { transform: translate(-40px, -30px); } }
+
+.tz-vignette {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background:
+        radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0,0,0,.65) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.35), transparent 30%, transparent 70%, rgba(0,0,0,.5));
+}
+
+/* ---------- Panggung ---------- */
+.tz-stage {
+    position: relative; z-index: 2;
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 18px;
+    padding: 32px 16px;
+}
+
+/* ---------- Kartu kaca ---------- */
+.tz-card {
+    --cut: 38px;
+    position: relative;
+    width: 100%; max-width: 440px;
+    padding: 1px;                         /* ruang untuk garis tepi */
+    background: linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,255,255,.04) 40%, rgba(255,210,31,.18) 100%);
+    clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+    box-shadow: 0 40px 80px rgba(0,0,0,.6);
+    animation: card-in .8s cubic-bezier(.2,.8,.2,1) both;
+    transition: transform .5s;
+}
+@keyframes card-in { from { opacity: 0; transform: translateY(26px) scale(.97); } to { opacity: 1; transform: none; } }
+
+.tz-card-inner {
+    position: relative;
+    padding: 34px 34px 28px;
+    background: linear-gradient(160deg, rgba(34,34,38,.82), rgba(14,14,17,.88));
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    backdrop-filter: blur(22px) saturate(140%);
+    clip-path: polygon(calc(var(--cut) - 1px) 0, 100% 0, 100% calc(100% - var(--cut) + 1px), calc(100% - var(--cut) + 1px) 100%, 0 100%, 0 calc(var(--cut) - 1px));
+    transition: opacity .35s, transform .35s, filter .35s;
+}
+.tz-card.is-switching .tz-card-inner { opacity: 0; transform: scale(.96); filter: blur(8px); }
+
+.tz-corner {
+    position: absolute; width: 46px; height: 46px; pointer-events: none;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.04);
+}
+.tz-corner.tl { top: 0; left: 0; clip-path: polygon(0 100%, 100% 0, 100% 100%); transform: none; }
+.tz-corner.br { right: 0; bottom: 0; clip-path: polygon(0 100%, 100% 0, 0 0); }
+
+/* ---------- Overlay transisi ---------- */
+.tz-switching {
+    position: absolute; inset: 0; z-index: 5;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s;
+}
+.tz-card.is-switching .tz-switching { opacity: 1; }
+.tz-glass-logo {
+    width: 84px; height: 84px; border-radius: 22px;
+    display: grid; place-items: center;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.25);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(255,210,31,.25), inset 0 0 20px rgba(255,255,255,.06);
+    animation: logo-spin 1s ease-in-out infinite;
+}
+.tz-glass-logo img { width: 120px; height: auto; object-fit: contain; }
+@keyframes logo-spin { 0%,100% { transform: rotate(-6deg) scale(.96); } 50% { transform: rotate(6deg) scale(1.05); } }
+
+/* ---------- Brand & judul ---------- */
+.tz-brand { display: flex; align-items: center; justify-content: flex-start; margin-bottom: 18px; }
+.tz-logo { width: 230px; height: auto; object-fit: contain; display: block; filter: drop-shadow(0 4px 14px rgba(0,0,0,.45)); }
+.tz-brand span { font-size: 11px; letter-spacing: .22em; font-weight: 600; color: rgba(255,255,255,.55); }
+
+.tz-view { display: none; }
+.tz-view.active { display: block; animation: view-in .5s .05s both; }
+@keyframes view-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.tz-view h1 {
+    margin: 0; font-family: 'Space Grotesk', sans-serif;
+    font-size: 30px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1;
+}
+.tz-view h1 em { font-style: normal; color: var(--gold); }
+.tz-sub { margin: 6px 0 22px; font-size: 12.5px; color: rgba(255,255,255,.45); }
+
+/* ---------- Form ---------- */
+.tz-login label { display: block; font-size: 11.5px; font-weight: 500; color: rgba(255,255,255,.7); margin: 0 0 6px; }
+.tz-field {
+    position: relative; display: flex; align-items: center;
+    margin-bottom: 14px;
+    background: rgba(255,255,255,.045);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 10px;
+    transition: border-color .25s, box-shadow .25s, background .25s;
+}
+.tz-field:focus-within {
+    border-color: var(--gold);
+    background: rgba(255,210,31,.05);
+    box-shadow: 0 0 0 3px rgba(255,210,31,.14), 0 0 24px rgba(255,210,31,.12);
+}
+.tz-field > i { width: 40px; text-align: center; font-size: 13px; color: rgba(255,255,255,.38); flex: none; transition: color .25s; }
+.tz-field:focus-within > i { color: var(--gold); }
+.tz-field input {
+    flex: 1; min-width: 0; height: 44px; padding: 0 12px 0 0;
+    background: none; border: 0; outline: 0; box-shadow: none;
+    color: #fff; font: 400 13.5px 'Poppins', sans-serif;
+}
+.tz-field input::placeholder { color: rgba(255,255,255,.28); }
+.tz-field input:-webkit-autofill { -webkit-text-fill-color: #fff; transition: background-color 9999s; }
+.tz-eye { background: none; border: 0; color: rgba(255,255,255,.4); width: 40px; height: 44px; cursor: pointer; font-size: 13px; }
+.tz-eye:hover { color: var(--gold); }
+
+.tz-two { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; }
+.tz-two .tz-field input { padding-right: 0; }
+.tz-two .tz-eye { width: 32px; }
+
+.tz-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 2px 0 16px; font-size: 11.5px; }
+.tz-row a { color: rgba(255,255,255,.55); text-decoration: none; }
+.tz-row a:hover { color: var(--gold); }
+
+.tz-login .tz-check { display: flex; align-items: center; gap: 8px; margin: 0; color: rgba(255,255,255,.55); cursor: pointer; font-size: 11.5px; }
+.tz-check input { position: absolute; opacity: 0; pointer-events: none; }
+.tz-check span {
+    width: 16px; height: 16px; border-radius: 4px; flex: none;
+    border: 1px solid rgba(255,255,255,.3); display: grid; place-items: center;
+    transition: .2s;
+}
+.tz-check input:checked + span { background: var(--gold); border-color: var(--gold); }
+.tz-check input:checked + span::after { content: ''; width: 4px; height: 8px; border: solid #111; border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px,-1px); }
+.tz-check input:focus-visible + span { box-shadow: 0 0 0 3px rgba(255,210,31,.3); }
+
+/* Tombol utama kuning */
+.tz-btn {
+    width: 100%; height: 46px; border: 0; border-radius: 10px; cursor: pointer;
+    background: linear-gradient(180deg, #ffe14d, var(--gold));
+    color: #14110a; font: 700 13.5px 'Poppins', sans-serif;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    box-shadow: 0 8px 28px rgba(255,210,31,.28), inset 0 1px 0 rgba(255,255,255,.5);
+    transition: transform .2s, box-shadow .2s, filter .2s;
+}
+.tz-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 34px rgba(255,210,31,.4), inset 0 1px 0 rgba(255,255,255,.5); filter: brightness(1.04); }
+.tz-btn:active { transform: translateY(1px); }
+.tz-btn i { transition: transform .2s; }
+.tz-btn:hover i { transform: translateX(3px); }
+
+/* Divider & tombol sekunder */
+.tz-divider { display: flex; align-items: center; gap: 12px; margin: 18px 0 14px; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.28); }
+.tz-divider::before, .tz-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.09); }
+.tz-alt { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.tz-ghost {
+    height: 42px; border-radius: 10px; cursor: pointer; text-decoration: none;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.09);
+    color: rgba(255,255,255,.8); font: 500 12.5px 'Poppins', sans-serif;
+    transition: .2s;
+}
+.tz-ghost:hover { background: rgba(255,255,255,.09); border-color: rgba(255,210,31,.4); color: #fff; }
+.tz-ghost i { color: var(--gold); font-size: 12px; }
+
+.tz-switch { margin: 18px 0 0; text-align: center; font-size: 12px; color: rgba(255,255,255,.45); }
+.tz-switch a { color: var(--gold); font-weight: 600; text-decoration: none; }
+.tz-switch a:hover { text-decoration: underline; }
+
+/* Pesan error / sukses (menimpa gaya lama) */
+.tz-login .login-error {
+    margin: 0 0 12px; padding: 9px 12px; border-radius: 8px; font-size: 12px;
+    background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.35); color: #fca5a5;
+}
+.tz-login .login-error.ok { background: rgba(34,197,94,.12); border-color: rgba(34,197,94,.35); color: #86efac; }
+.tz-login .login-error.hidden { display: none; }
+.tz-login .login-error.shake { animation: shake .4s; }
+@keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+/* Daftar akun demo */
+.tz-demo {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px;
+    max-width: 440px; font-size: 11px; color: rgba(255,255,255,.4);
+}
+.tz-demo b { width: 100%; text-align: center; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; font-size: 10px; color: rgba(255,255,255,.55); }
+.tz-demo span { font-family: ui-monospace, monospace; }
+
+@media (max-width: 480px) {
+    .tz-card-inner { padding: 28px 22px 24px; }
+    .tz-view h1 { font-size: 26px; }
+    .tz-two { grid-template-columns: 1fr; gap: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .tz-waves g, .tz-glass-logo, .tz-card, .tz-view.active { animation: none; }
+}
+
+
+/* =====================================================
+   TRANSISI MASUK <-> DAFTAR + GLOW EMAS (motion system)
+   ===================================================== */
+.tz-views { position: relative; transition: height .46s var(--tz-ease, cubic-bezier(.22,.8,.3,1)); }
+.tz-view.out-l { animation: view-out-l .26s cubic-bezier(.4,0,1,1) both; pointer-events: none; }
+.tz-view.out-r { animation: view-out-r .26s cubic-bezier(.4,0,1,1) both; pointer-events: none; }
+.tz-view.in-r  { animation: view-in-r .46s cubic-bezier(.22,.8,.3,1) both; }
+.tz-view.in-l  { animation: view-in-l .46s cubic-bezier(.22,.8,.3,1) both; }
+@keyframes view-out-l { to { opacity: 0; transform: translateX(-34px) scale(.97); } }
+@keyframes view-out-r { to { opacity: 0; transform: translateX(34px) scale(.97); } }
+@keyframes view-in-r  { from { opacity: 0; transform: translateX(34px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes view-in-l  { from { opacity: 0; transform: translateX(-34px) scale(.97); } to { opacity: 1; transform: none; } }
+/* isi form masuk berurutan sedikit */
+.tz-view.in-r > *, .tz-view.in-l > * { animation: view-item .5s cubic-bezier(.22,.8,.3,1) both; }
+.tz-view.in-r > :nth-child(2), .tz-view.in-l > :nth-child(2) { animation-delay: .04s; }
+.tz-view.in-r > :nth-child(3), .tz-view.in-l > :nth-child(3) { animation-delay: .08s; }
+.tz-view.in-r > :nth-child(4), .tz-view.in-l > :nth-child(4) { animation-delay: .12s; }
+@keyframes view-item { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
+
+/* glow emas lembut pada kartu aktif */
+.tz-card { background-size: 220% 220%; animation: card-in .8s cubic-bezier(.2,.8,.2,1) both, border-sheen 9s ease-in-out 1s infinite alternate; }
+@keyframes border-sheen { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
+.tz-card-inner::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(120% 55% at 50% -8%, rgba(255,210,31,.16), transparent 62%),
+                radial-gradient(70% 40% at 100% 100%, rgba(255,122,24,.09), transparent 70%);
+    animation: fx-breathe 6s ease-in-out infinite;
+}
+.tz-brand, .tz-views { position: relative; z-index: 1; }
+
+/* tombol: skala halus, kilau, glow */
+.tz-btn { position: relative; overflow: hidden; }
+.tz-btn::after {
+    content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
+    transform: skewX(-18deg); transition: left .6s ease; pointer-events: none;
+}
+.tz-btn:hover::after { left: 130%; }
+.tz-btn:hover { transform: translateY(-1px) scale(1.015); }
+.tz-btn:active { transform: translateY(1px) scale(.985); box-shadow: 0 4px 16px rgba(255,210,31,.3), inset 0 1px 0 rgba(255,255,255,.4); }
+.tz-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.tz-switch a { display: inline-block; transition: color .2s, transform .2s; }
+.tz-switch a:hover { transform: translateY(-1px); }
+.tz-switch a:active { transform: scale(.96); }
+
+@media (prefers-reduced-motion: reduce) {
+    .tz-views { transition: none; }
+    .tz-card { animation: none; }
+    .tz-card-inner::before { animation: none; }
+    .tz-btn::after { display: none; }
+    .tz-btn:hover, .tz-btn:active { transform: none; }
+}

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechZone Store - Laptop, HP, iPad &amp; Gadget Pilihan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="icon" type="image/png" href="images/techzone-logo.png">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="tz-motion.css">
+<script src="tz-motion.js"></script>
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="#beranda"><img src="images/techzone-logo.png" alt="TechZone Computers"></a>
+  <nav id="menu">
+    <a href="#beranda" class="active">Beranda</a><a href="#produk">Produk</a><a href="#tentang">Tentang</a><a href="#kontak">Kontak</a>
+    <div class="user-slot m-only" id="user-slot-m"></div>
+  </nav>
+  <div class="nav-actions">
+    <button class="icon-btn" id="btn-fav" aria-label="Produk yang disukai"><i class="fa-solid fa-heart"></i><span class="badge" id="fav-count">0</span></button>
+    <button class="icon-btn" id="btn-cart" aria-label="Buka keranjang"><i class="fa-solid fa-cart-shopping"></i><span class="badge" id="cart-count">0</span></button>
+    <div id="user-slot" class="user-slot"></div>
+  </div>
+  <button class="nav-toggle" aria-label="Buka menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+</header>
+
+<main>
+<section id="beranda" class="hero" data-fx-parallax="pointer">
+  <div class="fx-orbs" aria-hidden="true">
+    <i class="fx-orb" style="--x:-10%;--y:-18%;--s:620px;--a:.20;--d:24s;--dx:80px;--dy:50px;--depth:28"></i>
+    <i class="fx-orb blue" style="--x:48%;--y:40%;--s:700px;--a:.30;--d:28s;--dx:-90px;--dy:-40px;--depth:-20"></i>
+    <i class="fx-orb" style="--x:66%;--y:-10%;--s:420px;--a:.18;--d:19s;--dx:-40px;--dy:80px;--depth:16"></i>
+    <i class="fx-dust" style="--x:8%;--y:72%;--d:10s;--dl:0s"></i><i class="fx-dust" style="--x:22%;--y:60%;--d:12s;--dl:-4s;--w:3px"></i>
+    <i class="fx-dust" style="--x:44%;--y:80%;--d:11s;--dl:-7s;--w:5px"></i><i class="fx-dust" style="--x:58%;--y:66%;--d:9s;--dl:-2s;--w:3px"></i>
+    <i class="fx-dust" style="--x:76%;--y:78%;--d:13s;--dl:-9s"></i><i class="fx-dust" style="--x:90%;--y:58%;--d:10s;--dl:-5s;--w:3px"></i>
+  </div>
+  <div class="hero-text">
+    <h1>TechZone <span class="hl">Gadget</span> Store</h1>
+    <p>Laptop, HP, iPad, dan mouse pilihan dari merek ternama. Produk original, harga jelas, tinggal suka, masukkan keranjang, lalu bayar lewat QRIS atau transfer bank.</p>
+    <a href="#produk" class="btn">Lihat Produk</a>
+  </div>
+  <div class="hc" id="hc" role="region" aria-roledescription="carousel" aria-label="Produk unggulan TechZone">
+    <div class="hc-stage" id="hc-stage">
+      <div class="hc-slides" id="hc-slides">
+        <!-- Slide diisi home-hero.js dari katalog; gambar ini hanya cadangan bila JS gagal -->
+        <div class="hc-slide" data-pos="0"><div class="hc-photo"><img src="images/asus-rog-strix-g15.jpg" alt="ASUS ROG Strix G15" draggable="false"></div></div>
+      </div>
+      <button type="button" class="hc-arrow prev" id="hc-prev" aria-label="Produk sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+      <button type="button" class="hc-arrow next" id="hc-next" aria-label="Produk berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <div class="hc-info" id="hc-info">
+      <span class="hc-cat" id="hc-cat"></span>
+      <h3 class="hc-name"><button type="button" id="hc-name"></button></h3>
+      <p class="hc-desc" id="hc-desc"></p>
+      <div class="hc-cta-row"><button type="button" class="btn hc-cta" id="hc-cta"></button><span class="hc-price" id="hc-price"></span></div>
+    </div>
+    <div class="hc-dots" id="hc-dots" role="group" aria-label="Pilih produk unggulan"></div>
+  </div>
+</section>
+
+<section id="produk" class="sec light">
+  <div class="sec-head"><h2>Semua Produk</h2><p>Laptop, HP, mouse, dan tablet pilihan TechZone</p></div>
+  <div class="shop-tools">
+    <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="search" type="search" placeholder="Cari produk..." aria-label="Cari produk"></div>
+    <select id="sort" aria-label="Urutkan">
+      <option value="default">Urutan bawaan</option>
+      <option value="murah">Harga terendah</option>
+      <option value="mahal">Harga tertinggi</option>
+      <option value="nama">Nama A-Z</option>
+    </select>
+  </div>
+  <div class="chips" id="chips">
+    <button class="chip active" data-cat="semua"><i class="fa-solid fa-border-all"></i> Semua</button>
+    <button class="chip" data-cat="laptop"><i class="fa-solid fa-laptop"></i> Laptop</button>
+    <button class="chip" data-cat="hp"><i class="fa-solid fa-mobile-screen-button"></i> HP</button>
+    <button class="chip" data-cat="mouse"><i class="fa-solid fa-computer-mouse"></i> Mouse</button>
+    <button class="chip" data-cat="ipad"><i class="fa-solid fa-tablet-screen-button"></i> iPad &amp; Tablet</button>
+    <button class="chip" data-cat="favorit"><i class="fa-solid fa-heart"></i> Favorit saya</button>
+  </div>
+  <p class="summary" id="summary"></p>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="tentang" class="sec dark about" data-fx-parallax="scroll">
+  <div class="fx-orbs" aria-hidden="true">
+    <i class="fx-orb" style="--x:-14%;--y:-10%;--s:620px;--a:.20;--d:24s;--dx:80px;--dy:50px;--depth:28"></i>
+    <i class="fx-orb blue" style="--x:48%;--y:40%;--s:700px;--a:.30;--d:28s;--dx:-90px;--dy:-40px;--depth:-20"></i>
+    <i class="fx-orb" style="--x:70%;--y:50%;--s:420px;--a:.18;--d:19s;--dx:-40px;--dy:80px;--depth:16"></i>
+    <i class="fx-dust" style="--x:8%;--y:72%;--d:10s;--dl:0s"></i><i class="fx-dust" style="--x:22%;--y:60%;--d:12s;--dl:-4s;--w:3px"></i>
+    <i class="fx-dust" style="--x:44%;--y:80%;--d:11s;--dl:-7s;--w:5px"></i><i class="fx-dust" style="--x:58%;--y:66%;--d:9s;--dl:-2s;--w:3px"></i>
+    <i class="fx-dust" style="--x:76%;--y:78%;--d:13s;--dl:-9s"></i><i class="fx-dust" style="--x:90%;--y:58%;--d:10s;--dl:-5s;--w:3px"></i>
+  </div>
+  <div class="about-text">
+    <h2 data-reveal>Belanja Teknologi Tanpa Ragu</h2>
+    <p data-reveal style="--rv-delay:90ms">Kami menjual perangkat dari merek yang sudah terbukti, lengkap dengan spesifikasi yang jujur. Tim kami siap membantu memilih perangkat yang sesuai kebutuhan dan anggaran Anda.</p>
+    <ul class="feats" data-reveal-stagger="110">
+      <li><i class="fa-solid fa-shield-halved"></i><b>Produk Original</b><small>Bergaransi resmi</small></li>
+      <li><i class="fa-solid fa-truck-fast"></i><b>Siap Diantar</b><small>Dikemas aman</small></li>
+      <li><button type="button" class="tz-consult-trigger" data-chat-open><i class="fa-solid fa-headset"></i><b>Konsultasi Gratis</b><small>Tanya admin kapan saja</small></button></li>
+      <li><i class="fa-solid fa-qrcode"></i><b>Bayar Mudah</b><small>QRIS &amp; transfer bank</small></li>
+    </ul>
+    <a href="#produk" class="btn" data-reveal style="--rv-delay:200ms">Belanja Sekarang</a>
+  </div>
+  <div class="about-img about-store-carousel" data-reveal="right" aria-label="Foto toko elektronik TechZone">
+    <div class="about-store-heading">
+      <span class="about-store-heading-icon" aria-hidden="true"><i class="fa-solid fa-store"></i></span>
+      <div><h3>Foto Toko Kami</h3><p>Suasana toko TechZone yang nyaman dan lengkap dengan berbagai produk teknologi.</p></div>
+    </div>
+    <div class="about-store-track" id="about-store-track">
+      <figure class="about-store-slide is-active"><img src="images/toko-techzone-interior.jpg" alt="Interior toko komputer dengan etalase laptop" draggable="false"></figure>
+      <figure class="about-store-slide"><img src="images/toko-techzone-display-clean.jpg" alt="Tampilan lebih dekat area display di toko komputer" draggable="false"></figure>
+    </div>
+    <button class="about-store-arrow prev" type="button" id="about-store-prev" aria-label="Foto toko sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="about-store-arrow next" type="button" id="about-store-next" aria-label="Foto toko berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+    <div class="about-store-dots" role="group" aria-label="Pilih foto toko">
+      <button type="button" class="is-active" data-store-slide="0" aria-label="Foto toko 1" aria-current="true"></button>
+      <button type="button" data-store-slide="1" aria-label="Foto toko 2" aria-current="false"></button>
+    </div>
+  </div>
+</section>
+
+<section class="sec light">
+  <div class="sec-head"><h2>Kata Mereka</h2><p>Pengalaman langsung dari pelanggan yang sudah belanja</p></div>
+  <div class="marquee"><div class="track" id="row1"></div></div>
+  <div class="marquee"><div class="track rev" id="row2"></div></div>
+</section>
+
+<section class="cta">
+  <h2>Upgrade Gadget Kamu</h2>
+  <p>Cek diskon terbaru dari kami dan amankan gadget impianmu sebelum stok habis.</p>
+  <a href="#produk" class="btn">Belanja Sekarang</a>
+</section>
+
+</main>
+
+<footer id="kontak" class="foot">
+  <div><h3>TechZone Store</h3><p>Menghadirkan gadget original dengan layanan yang ramah dan transparan.</p><a class="logo" href="#beranda"><img src="images/techzone-logo.png" alt="TechZone Computers"></a></div>
+  <div><h3>Kontak Kami</h3>
+    <p><i class="fa-solid fa-location-dot"></i> Jl. Teknologi No. 88, Jakarta</p>
+    <p><i class="fa-brands fa-whatsapp"></i> 0812-3456-7890</p>
+    <p><i class="fa-solid fa-envelope"></i> halo@techzone.id</p>
+    <div class="soc"><a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></div></div>
+  <div><h3>Jam Operasional</h3><p><i class="fa-regular fa-clock"></i> Senin - Jumat: 09:00 - 21:00</p><p><i class="fa-regular fa-clock"></i> Sabtu - Minggu: 10:00 - 20:00</p>
+    <p class="mut"><a href="index.html" id="foot-login">Masuk ke akun</a></p></div>
+  <p class="copy">&copy; 2026 TechZone Store. Seluruh hak cipta dilindungi.</p>
+</footer>
+
+<!-- KERANJANG -->
+<div id="overlay" class="overlay hidden"></div>
+<aside id="drawer" class="drawer" aria-hidden="true" aria-label="Keranjang belanja">
+  <div class="drawer-head"><h3><i class="fa-solid fa-cart-shopping"></i> Keranjang Saya</h3><button class="x" data-close="drawer" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button></div>
+  <div id="cart-items" class="cart-items"></div>
+  <div class="drawer-foot">
+    <div class="cart-total"><span>Total</span><strong id="cart-total">Rp 0</strong></div>
+    <button class="btn full-w" id="btn-checkout"><i class="fa-solid fa-lock"></i> Checkout</button>
+  </div>
+</aside>
+
+<!-- SPESIFIKASI -->
+<div id="modal-spec" class="modal hidden"><div class="modal-card">
+  <button class="x" data-close="modal-spec" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+  <div id="spec-content"></div>
+</div></div>
+
+<!-- PEMBAYARAN -->
+<div id="modal-payment" class="modal hidden"><div class="modal-card">
+  <button class="x" data-close="modal-payment" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+  <span class="pill">PEMBAYARAN</span>
+  <h3 class="m-title">Pilih Metode Bayar</h3>
+  <div id="pay-summary" class="pay-summary"></div>
+  <div class="bank-grid" id="bank-grid">
+    <button type="button" class="bank" data-bank="QRIS">QRIS</button>
+    <button type="button" class="bank" data-bank="BCA">BCA</button>
+    <button type="button" class="bank" data-bank="BRI">BRI</button>
+    <button type="button" class="bank" data-bank="Mandiri">Mandiri</button>
+    <button type="button" class="bank" data-bank="BNI">BNI</button>
+    <button type="button" class="bank" data-bank="BSI">BSI</button>
+    <button type="button" class="bank" data-bank="Bank Jago">Bank Jago</button>
+    <button type="button" class="bank" data-bank="Bank Lainnya">Lainnya</button>
+  </div>
+  <div class="qr-box"><div id="qrcode" class="qr"><span>Pilih metode untuk menampilkan QR</span></div>
+    <div class="qr-info"><small id="pay-method">Metode: belum dipilih</small><span>Total Pembayaran</span><strong id="pay-total">Rp 0</strong></div></div>
+  <button class="btn full-w" id="btn-paid" disabled><i class="fa-solid fa-circle-check"></i> Saya Sudah Bayar</button>
+</div></div>
+
+<!-- STRUK -->
+<div id="modal-struk" class="modal hidden"><div class="modal-card">
+  <button class="x no-print" data-close="modal-struk" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+  <div id="print-area" class="receipt">
+    <div class="r-brand"><img src="images/techzone-logo-dark.png" alt="TechZone Computers"><small>Struk Pembayaran</small></div>
+    <div class="stamp"><i class="fa-solid fa-circle-check"></i> SUDAH LUNAS</div>
+    <div class="r-meta"><span>No. Transaksi <b id="struk-id"></b></span><span>Tanggal <b id="struk-tgl"></b></span><span>Pelanggan <b id="struk-pelanggan"></b></span><span>Metode <b id="struk-metode"></b></span></div>
+    <div id="struk-items" class="r-items"></div>
+    <div class="cart-total"><span>Total Dibayar</span><strong id="struk-total"></strong></div>
+    <p class="thanks">Terima kasih sudah berbelanja di TechZone Store. Barang siap diambil di toko atau diantar.</p>
+  </div>
+  <div class="r-actions no-print"><button class="btn" type="button" id="btn-print-struk"><i class="fa-solid fa-print"></i> Cetak Struk</button><button class="btn ghost" data-close="modal-struk">Tutup</button></div>
+</div></div>
+
+<div id="print-sheet" aria-hidden="true"></div>
+<script src="script.js"></script>
+<script src="home.js"></script>
+<script src="home-fx.js"></script>
+<script src="home-hero.js"></script>
+<script src="about-carousel.js"></script>
+<script src="chat.js"></script>
+</body>
+</html>

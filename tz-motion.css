@@ -1,0 +1,65 @@
+/* =====================================================
+   TECHZONE MOTION SYSTEM (dipakai index.html & home.html)
+   Satu sumber untuk: token, orb emas, debu cahaya, float,
+   scroll-reveal, parallax. Semua animasi hanya memakai
+   transform/opacity/translate agar ringan (compositor).
+   ===================================================== */
+:root{
+  --tz-ease:cubic-bezier(.22,.8,.3,1);
+  --tz-gold:#ffd21f;--tz-amber:#ff7a18;
+  --tz-black:#05060a;--tz-navy:#0b1224;--tz-navy2:#0f1a33;
+  --tz-glow:0 0 28px rgba(255,210,31,.22);
+}
+
+/* ---------- Latar: orb emas + debu cahaya ---------- */
+.fx-orbs{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.fx-orbs.fx-fixed{position:fixed}
+.fx-orb{
+  position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;
+  background:radial-gradient(circle,rgba(255,210,31,var(--a,.26)),rgba(255,122,24,calc(var(--a,.26)*.35)) 38%,transparent 68%);
+  translate:calc(var(--fx-px,0)*var(--depth,24)*1px) calc(var(--fx-py,0)*var(--depth,24)*1px);
+  animation:fx-drift var(--d,20s) ease-in-out infinite alternate;
+  will-change:transform;
+}
+.fx-orb.blue{background:radial-gradient(circle,rgba(56,100,235,var(--a,.3)),rgba(56,100,235,calc(var(--a,.3)*.3)) 40%,transparent 68%)}
+@keyframes fx-drift{
+  from{transform:translate3d(0,0,0) scale(1)}
+  to{transform:translate3d(var(--dx,60px),var(--dy,40px),0) scale(1.14)}
+}
+.fx-dust{
+  position:absolute;left:var(--x);top:var(--y);width:var(--w,4px);height:var(--w,4px);border-radius:50%;
+  background:var(--tz-gold);box-shadow:0 0 10px 2px rgba(255,210,31,.55);opacity:0;
+  animation:fx-rise var(--d,9s) ease-in-out infinite;animation-delay:var(--dl,0s);
+}
+@keyframes fx-rise{
+  0%{opacity:0;transform:translate3d(0,24px,0)}
+  25%{opacity:.75}
+  75%{opacity:.55}
+  100%{opacity:0;transform:translate3d(var(--dx,14px),-110px,0)}
+}
+
+/* ---------- Float & denyut ---------- */
+@keyframes fx-float{0%,100%{translate:0 4px}50%{translate:0 -4px}}
+@keyframes fx-bob{0%,100%{translate:0 2px}50%{translate:0 -3px}}
+@keyframes fx-breathe{0%,100%{opacity:.55}50%{opacity:1}}
+
+/* ---------- Scroll reveal ----------
+   Kelas `fx` dipasang oleh tz-motion.js hanya bila animasi diizinkan,
+   jadi tanpa JS / reduced-motion konten selalu tampil. */
+.fx [data-reveal]:not(.rv-done):not(.is-in){opacity:0;translate:0 26px}
+.fx [data-reveal]:not(.rv-done).is-in{
+  opacity:1;translate:0 0;
+  transition:opacity .8s var(--tz-ease),translate .8s var(--tz-ease);
+  transition-delay:var(--rv-delay,0ms);
+}
+.fx [data-reveal="left"]:not(.rv-done):not(.is-in){translate:-34px 0}
+.fx [data-reveal="right"]:not(.rv-done):not(.is-in){translate:34px 0}
+.fx [data-reveal="zoom"]:not(.rv-done):not(.is-in){translate:0 18px;scale:.94}
+.fx [data-reveal="zoom"]:not(.rv-done).is-in{scale:1;transition-property:opacity,translate,scale}
+@media print{.fx [data-reveal]{opacity:1!important;translate:none!important;scale:none!important}}
+
+@media(prefers-reduced-motion:reduce){
+  .fx-orb,.fx-dust{animation:none}
+  .fx-dust{display:none}
+  .fx-orb{translate:none}
+}
